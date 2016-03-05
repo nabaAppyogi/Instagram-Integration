@@ -21,9 +21,7 @@ public class Constants {
 
 Finally your done now.
 
-- Execute the code with your api key and you are done simple as it is 
-
-* [For more codes, funs and for queries be in touch with @ashokslsk ](https://github.com/ashokslsk)
+* [For more codes and for queries be in touch with @ashokslsk ](https://github.com/ashokslsk)
 
 
 ## License
