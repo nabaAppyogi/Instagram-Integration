@@ -11,8 +11,8 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.ashokslsk.instagram.adapter.MyGridListAdapter;
-import com.ashokslsk.instagram.util.Constants;
 import com.ashokslsk.instagram.util.InstagramApp;
+import com.ashokslsk.instagram.util.InstagramSession;
 import com.ashokslsk.instagram.util.JSONParser;
 
 import org.json.JSONArray;
@@ -80,8 +80,8 @@ public class AllMediaFiles extends Activity {
                     JSONObject jsonObject = jsonParser
                             .getJSONFromUrlByGet("https://api.instagram.com/v1/users/"
                                     + userInfo.get(InstagramApp.TAG_ID)
-                                    + "/media/recent/?client_id="
-                                    + Constants.CLIENT_ID
+                                    + "/media/recent/?access_token="
+                                    + new InstagramSession(getApplicationContext()).getAccessToken()
                                     + "&count="
                                     + userInfo.get(InstagramApp.TAG_COUNTS));
                     JSONArray data = jsonObject.getJSONArray(TAG_DATA);

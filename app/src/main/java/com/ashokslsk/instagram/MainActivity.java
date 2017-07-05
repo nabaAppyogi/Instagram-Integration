@@ -118,12 +118,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             String url = "";
             if (v == btnFollowers) {
-                url = "https://api.instagram.com/v1/users/"
-                        + userInfoHashmap.get(InstagramApp.TAG_ID)
+                url = "https://api.instagram.com/v1/users/self"
                         + "/follows?access_token=" + mApp.getTOken();
-            } else if (v == btnFollwing) {
-                url = "https://api.instagram.com/v1/users/"
+                /*url = "https://api.instagram.com/v1/users/"
                         + userInfoHashmap.get(InstagramApp.TAG_ID)
+                        + "/follows?access_token=" + mApp.getTOken();*/
+            } else if (v == btnFollwing) {
+                url = "https://api.instagram.com/v1/users/self"
                         + "/followed-by?access_token=" + mApp.getTOken();
             }
             startActivity(new Intent(MainActivity.this, Relationship.class)

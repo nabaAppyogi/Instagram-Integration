@@ -25,8 +25,6 @@ public class InstagramSession {
     /**
      *
      * @param accessToken
-     * @param expireToken
-     * @param expiresIn
      * @param username
      */
     public void storeAccessToken(String accessToken, String id, String username, String name) {

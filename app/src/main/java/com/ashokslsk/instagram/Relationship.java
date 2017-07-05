@@ -3,6 +3,7 @@ package com.ashokslsk.instagram;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +18,7 @@ import com.ashokslsk.instagram.adapter.RelationShipAdapter;
 import com.ashokslsk.instagram.util.JSONParser;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -86,6 +88,14 @@ public class Relationship extends Activity {
 
     private void getAllMediaImages() {
         pd = ProgressDialog.show(context, "", "Loading...");
+        pd.setCancelable(true);
+        pd.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                dialog.dismiss();
+                finish();
+            }
+        });
         new Thread(new Runnable() {
 
             @Override
@@ -95,6 +105,20 @@ public class Relationship extends Activity {
                     // URL url = new URL(mTokenUrl + "&code=" + code);
                     JSONParser jsonParser = new JSONParser();
                     JSONObject jsonObject = jsonParser.getJSONFromUrlByGet(url);
+                    final JSONObject metaData = jsonObject.getJSONObject("meta");
+                    if (metaData.getInt("code") == 400) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    pd.setMessage(metaData.getString("error_message"));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                        return;
+                    }
                     JSONArray data = jsonObject.getJSONArray(TAG_DATA);
                     for (int data_i = 0; data_i < data.length(); data_i++) {
                         HashMap<String, String> hashMap = new HashMap<String, String>();
